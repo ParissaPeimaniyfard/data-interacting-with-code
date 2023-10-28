@@ -3,7 +3,7 @@ import sqlite3
 import sys
 
 conn = sqlite3.connect('data/movies.sqlite')
-db = conn.cursor()
+dbase = conn.cursor()
 
 # Functions
 
@@ -36,13 +36,7 @@ def love_movies(db):
     # in their title, sorted in alphabetical order
     query = """
     SELECT title from movies
-    WHERE title LIKE '% love %'
-        OR title LIKE '% love'
-        OR title LIKE 'love %'
-        OR title LIKE 'love,%'
-        OR title LIKE '% love''%'
-        OR title LIKE '% love.%'
-        OR title LIKE 'love'
+    WHERE title LIKE "%love%" or title like ", love%"
     ORDER BY title ASC
     """
     db.execute(query)
@@ -74,4 +68,26 @@ def movies_longer_than(db, min_length):
     """
     db.execute(query)
     rows = db.fetchall()
-    return [tup[0] for tup in rows]
+    print(rows)
+    return rows
+conn = sqlite3.connect('data/movies.sqlite')
+db = conn.cursor()
+movies_longer_than(db, 300)
+
+
+
+# Main
+print(directors_count(dbase))
+# print(directors_list(dbase))
+
+if len(sys.argv) > 0:
+    input_name = sys.argv[1]
+    #print(directors_named_like_count(dbase, input_name))
+else:
+    print("type a word and rerun the command")
+
+if len(sys.argv) > 0:
+    input_min_length = sys.argv[1]
+    #print(movies_longer_than(dbase, input_min_length))
+else:
+    print("type a duration and rerun the command")
