@@ -48,7 +48,7 @@ def love_movies(db):
     db.execute(query)
     rows = db.fetchall()
     # print(rows)
-    return rows
+    return [tup[0] for tup in rows]
 
 
 def directors_named_like_count(db, name):
